@@ -1,22 +1,33 @@
+int lives;
+int score;
+PVector end;
+ArrayList<Enemy> enemies;
+Map map;
 void setup() {
   size(1024, 700);
   background(255);
-}
-
-void setMap() {
-  rect(50, 25, 200, 50);//top left horiz
-  rect(width-250, 25, 200, 50); //top right horiz
-  rect(50, height-75, 200, 50);//bottom left horiz
-  rect(width-250, height-75, 200, 50); //bottom right horiz
-  rect(50, 25, 75, 200);//top left vertical
-  rect(width-125, 25, 75, 200); //top right vertical
-  rect(50, height-250, 75, 200); //bottom left vertical
-  rect(width-125, height-250, 75, 200);//bottom right vertical
-  fill(191);
-  stroke(191);
+  lives = 20;
+  score = 0;
+  enemies = new ArrayList<Enemy>();
+  for (int i = 0; i < 10; i++) enemies.add(new Enemy());
+  map = new Map();
+  end = new PVector(width-50, (height-25)/2);
 }
 
 void draw() {
-  setMap();
-  //spawnEnemies();
+  map.display();
+  for (int i = 0; i < enemies.size(); i++) {
+    if (enemies.get(i).dead()) {
+      enemies.remove(i);
+      score += 10;
+    }
+    enemies.get(i).display();
+    enemies.get(i).reachGoal();
+  }
+  if (lives <= 0) {
+    noLoop();
+    textSize(width/12);
+    textAlign(CENTER, CENTER);
+    text("GAME OVER\nFINAL SCORE:\n"+score, width/2, height/2);
+  }
 }
