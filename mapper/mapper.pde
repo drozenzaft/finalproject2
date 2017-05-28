@@ -22,7 +22,10 @@ void draw() {
       score += 10;
     }
     enemies.get(i).display();
-    enemies.get(i).reachGoal();
+    if (enemies.get(i).reachGoal()) {
+      System.out.println(true);
+      enemies.remove(i);
+    }
   }
   if (lives <= 0) {
     noLoop();

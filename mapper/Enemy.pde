@@ -2,14 +2,13 @@ class Enemy {
   int hp;
   color c;
   float size;
-  PVector start,position, velocity;
+  PVector start, position, velocity;
   Enemy() {
     hp = 5;
     c = color(255, 0, 0);
     position = new PVector(50, random(100)*randD()+(height-25)/2);
     start = position.copy();
     size = 8;
-    fill(255, 0, 0);
   }
   int randD() {
     int x = (int)random(2);
@@ -52,36 +51,37 @@ class Enemy {
   }
 
   boolean cleared(PVector velocity) {
-    if (velocity.x == 5)
-      for (int x = (int)position.x; x <= position.x+5; x++) if (get(x, (int)position.y) == color(0)) return false;
-    if (velocity.x == -5) 
-      for (int x = (int)position.x; x >= position.x-5; x--) if (get(x, (int)position.y) == color(0)) return false;
-    if (velocity.y == 5)
-      for (int y = (int)position.y; y <= position.y+5; y++) if (get((int)position.x, y) == color(0)) return false;
-    if (velocity.y == -5)
-      for (int y = (int)position.y; y >= position.y-5; y--) if (get((int)position.x, y) == color(0)) return false;
+    if (velocity.x == 10)
+      for (int x = (int)position.x; x <= position.x+10; x++) if (get(x, (int)position.y) == color(0)) return false;
+    if (velocity.x == -10) 
+      for (int x = (int)position.x; x >= position.x-10; x--) if (get(x, (int)position.y) == color(0)) return false;
+    if (velocity.y == 10)
+      for (int y = (int)position.y; y <= position.y+10; y++) if (get((int)position.x, y) == color(0)) return false;
+    if (velocity.y == -10)
+      for (int y = (int)position.y; y >= position.y-10; y--) if (get((int)position.x, y) == color(0)) return false;
     return true;
   }
 
-  void reachGoal() {
+  boolean reachGoal() {
+    int x,y;
     FrontierPriorityQueue frontier = new FrontierPriorityQueue(true);
     Location current = new Location((int)position.x, (int)position.y, null, 0, (int)end.x-(int)position.x+(int)Math.abs(end.y-position.y));
     frontier.add(current);
     while (frontier.size() > 0) {
       current = frontier.next();
-      position = new PVector(current.getX(), current.getY());
-      ellipse(position.x, position.y, size, size);
+      System.out.println(current.getX()+","+position.x);
+      x = Math.abs(current.getX()-(int)position.x);
+      y = Math.abs(current.getY()-(int)position.y);
+      position.add(new PVector(x,y));
       if (position.x >= end.x) {
         lives--;
-        return;
+        return true;
       }
-      for (Location n : getNeighbors(current))
+      for (Location n : getNeighbors(current)) {
         frontier.add(n);
-      //System.out.println(n);
+      }
     }
-  }
-  void decreaseLives() {
-    lives--;
+    return false;
   }
   void loseHealth() {
     hp--;
