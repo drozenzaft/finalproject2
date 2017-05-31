@@ -1,17 +1,19 @@
 int lives;
 int score;
 PVector end;
+Square goal;
 ArrayList<Enemy> enemies;
 Map map;
 
 void setup() {
-  size(1000, 700);
+  size(1050, 850);
   background(255);
+  map = new Map();
+  goal = new Square(20, 8);
   lives = 20;
   score = 0;
-  enemies = new ArrayList<Enemy>();
-  /*for (int i = 0; i < 10; i++)*/  enemies.add(new Enemy());
-  map = new Map();
+  //enemies = new ArrayList<Enemy>();
+  //enemies.add(new Enemy());
   end = new PVector(width-50, (height-25)/2);
 }
 
@@ -31,7 +33,7 @@ int compareTo(PVector me, PVector other) {
 
 void draw() {
   map.display();
-  for (int i = 0; i < enemies.size(); i++) {
+  /*for (int i = 0; i < enemies.size(); i++) {
     if (enemies.get(i).dead()) {
       enemies.remove(i);
       score += 10;
@@ -44,5 +46,5 @@ void draw() {
     textSize(width/12);
     textAlign(CENTER, CENTER);
     text("GAME OVER\nFINAL SCORE:\n"+score, width/2, height/2);
-  }
+  }*/
 }
