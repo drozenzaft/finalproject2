@@ -1,13 +1,13 @@
 class MyHeap {
-  ArrayList<PVector> heap;
+  ArrayList<Square> heap;
   int constant;
   MyHeap() {
-    heap = new ArrayList<PVector>();
+    heap = new ArrayList<Square>();
     heap.add(null);
     constant = 1;
   }
   MyHeap(boolean minMax) {
-    heap = new ArrayList<PVector>();
+    heap = new ArrayList<Square>();
     heap.add(null);
     if (minMax) constant = 1;
     else constant = -1;
@@ -15,22 +15,22 @@ class MyHeap {
   int size() {
     return heap.size() - 1;
   }
-  void add(PVector s) {
+  void add(Square s) {
     heap.add(s);
     pushUp(size());
   }
-  PVector remove() {
+  Square remove() {
     swap(1, size());
-    PVector root = heap.remove(size());
+    Square root = heap.remove(size());
     pushDown(1);
     return root;
   }
-  PVector peek() {
+  Square peek() {
     if (size() > 1) return heap.get(1);
     return null;
   }
   void swap(int a, int b) {
-    PVector temp = heap.get(a);
+    Square temp = heap.get(a);
     heap.set(a, heap.get(b));
     heap.set(b, temp);
   }
@@ -56,13 +56,13 @@ class MyHeap {
       i = bigger;
     }
   }
-  int compare2(PVector me, PVector other) {
-    return constant * compareTo(me, other);
+  int compare2(Square me, Square other) {
+    return constant * me.compareTo(other);
   }
 
   String toString() {
     String ans = "[";
-    for (PVector a : heap) ans += "(" + a.x + ", " + a.y + ")" + ", ";
+    for (Square a : heap) ans += a.toString() + ", ";
     return ans.substring(0, ans.length()-2) + "]";
   }
 }

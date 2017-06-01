@@ -8,11 +8,11 @@ class FrontierPriorityQueue {
   int size() {
     return size;
   }
-  void add(PVector coord) {
+  void add(Square coord) {
     size++;
     locations.add(coord);
   }
-  PVector next() {
+  Square next() {
     size--;
     return locations.remove();
   }
