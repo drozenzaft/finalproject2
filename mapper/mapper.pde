@@ -1,12 +1,14 @@
 int lives;
 int score;
-int startX, startY, goalX, goalY;
+int startX, startY, currentX, currentY, goalX, goalY;
 ArrayList<Enemy> enemies;
 Map map;
 
 void setup() {
   size(1050, 850);
   background(255);
+  currentX = 0;
+  currentY = 8;
   startX = 0;
   startY = 8;
   goalX = 20;
@@ -16,7 +18,9 @@ void setup() {
   score = 0;
   enemies = new ArrayList<Enemy>();
   enemies.add(new Enemy());
+  //for (Enemy e : enemies) e.reachGoal();
 }
+
 
 void draw() {
   map.display();
@@ -24,9 +28,15 @@ void draw() {
     if (enemies.get(i).dead()) {
       enemies.remove(i);
       score += 10;
+    } 
+    else {
+      enemies.get(i).display();
+      enemies.get(i).move();
     }
-    enemies.get(i).display();
-    if (enemies.get(i).reachGoal()) enemies.remove(i);
+    if (enemies.get(i).dead) {
+      enemies.remove(i);
+      i--;
+    }
   }
   if (lives <= 0) {
     noLoop();

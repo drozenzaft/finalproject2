@@ -2,11 +2,12 @@ class Enemy {
   int hp;
   color c;
   float size;
+  boolean dead;
   Square current;
   Enemy() {
     hp = 5;
     c = color(0);
-    current = new Square(startX, startY);
+    current = new Square(currentX, currentY);
     size = 15;
   }
   boolean dead() {
@@ -15,7 +16,7 @@ class Enemy {
   void display() {
     fill(c);
     stroke(c);
-    ellipse(current.x()+size, current.y()+size, size, size);
+    ellipse(current.x()*50+25, current.y()*50+25, size, size);
   }
   ArrayList<Square> getNeighbors() {
     Square a;
@@ -24,7 +25,7 @@ class Enemy {
     for (int[] i : neighbors) {
       a = new Square(current.x+i[0], current.y+i[1]);
       if (inBounds(a)) {
-        ans.add(a);
+        ans.add(new Square(a.x-current.x,a.y-current.y));
       }
     }
     return ans;
@@ -34,7 +35,17 @@ class Enemy {
     return x.x() > 0 && x.x() < width/50 && x.y() > 0 && x.y() < height/50;
   }
 
-  boolean reachGoal() {
+  void move() {
+    if (current.x > goalX && current.y == goalY) {
+      lives--;
+      dead = true;
+    }
+    System.out.println(new Square(current.x+(int)(current.nextMove()[0]*4),current.y+(int)(current.nextMove()[1]*4)));
+    current.x += current.nextMove()[0];
+    current.y += current.nextMove()[1];    
+  }
+
+  /*boolean reachGoal() {
     FrontierPriorityQueue frontier = new FrontierPriorityQueue(true);
     frontier.add(current);
     while (frontier.size() > 0) {
@@ -42,10 +53,11 @@ class Enemy {
       System.out.println(current);
       if (current.num() == 0) {
         lives--;
+        dead = true;
         return true;
       }
       for (Square n : getNeighbors()) frontier.add(n);
     }
     return false;
-  }
+  }*/
 }
