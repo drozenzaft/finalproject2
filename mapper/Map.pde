@@ -4,7 +4,7 @@ class Map {
     squares = new Square[height/50][width/50];
     for (int i = 0; i < squares.length; i++) {
       for (int j = 0; j < squares[i].length; j++) {
-        squares[i][j] = new Square(i,j);
+        squares[i][j] = new Square(j,i);
       }
     }
     display();
@@ -19,6 +19,9 @@ class Map {
         if (xcor == goalX*50 && ycor == goalY*50 || xcor == startX*50 && ycor == startY*50) fill(255,0,0);
         else fill(17,6,188);
         rect(xcor, ycor, 50, 50);
+        fill(255);
+        text(""+s.num(), xcor+25, ycor+25);
+        fill(17,6,188);
         xcor += 50;
       }
       ycor += 50;
@@ -30,18 +33,6 @@ class Map {
     squares[x][y] = new Square(x,y);
   }
   Square get(int x, int y) {
-    return squares[x][y];
+    return squares[y][x];
   }
-  /*void display() {
-    fill(191);
-    stroke(191);
-    rect(50, 25, 200, 50);//top left horiz
-    rect(width-250, 25, 200, 50); //top right horiz
-    rect(50, height-75, 200, 50);//bottom left horiz
-    rect(width-250, height-75, 200, 50); //bottom right horiz
-    rect(50, 25, 75, 200);//top left vertical
-    rect(width-125, 25, 75, 200); //top right vertical
-    rect(50, height-250, 75, 200); //bottom left vertical
-    rect(width-125, height-250, 75, 200);//bottom right vertical
-  }*/
 }

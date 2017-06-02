@@ -5,14 +5,15 @@ ArrayList<Enemy> enemies;
 Map map;
 
 void setup() {
-  size(1050, 850);
+  //size(1050, 850);
+  size(800,600);
   background(255);
   currentX = 0;
   currentY = 8;
   startX = 0;
   startY = 8;
-  goalX = 20;
-  goalY = 8;
+  goalX = width/50-1;
+  goalY = 2;
   map = new Map();
   lives = 20;
   score = 0;
@@ -25,7 +26,7 @@ void setup() {
 void draw() {
   map.display();
   for (int i = 0; i < enemies.size(); i++) {
-    if (enemies.get(i).dead()) {
+    if (enemies.get(i).killed()) {
       enemies.remove(i);
       score += 10;
     } 

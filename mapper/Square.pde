@@ -2,21 +2,20 @@ class Square {
   int distToGoal;
   int directX, directY;
   int x, y;
-  float speed;
   color c;
   Square(int xcor, int ycor) {
     x = xcor;
     y = ycor;
-    speed = 0.25;
     distToGoal = num();
-    fill(17, 6, 188);
+    c = color(17,6,188);
+    fill(c);
   }
   Square(int xcor, int ycor, color c) {
     x = xcor;
     y = ycor;
     distToGoal = num();
     fill(c);
-  }    
+  }
   boolean inBounds() {
     return !(x < 0 || y < 0 || x > width/50 || y > height/50);
   }
@@ -59,6 +58,6 @@ class Square {
     return moves[ind];
   }
   String toString() {
-    return "(" + x + "," + y + "): " + distToGoal;
+    return "(" + x + "," + y + "): " + num();
   }
 }
