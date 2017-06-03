@@ -1,15 +1,15 @@
+import java.util.Arrays;
 class Enemy {
   int hp;
   color c;
   float size;
   boolean dead;
-  PVector position;
+  PVector position,velocity;
   float speed;
   Enemy() {
     hp = 5;
     c = color(0);
-    speed = 4;
-    //position = new Square(positionX, positionY);
+    speed = 10;
     position = new PVector(startX*50,startY*50);
     size = 15;
   }
@@ -35,13 +35,15 @@ class Enemy {
   }*/
 
   void move() {
-    System.out.println("("+position.x+","+position.y+")");
-    if (gps().x == goalX && gps().y == goalY) {
+    System.out.println("("+position.x+", "+position.y+"), "+"("+position.x/50+", "+position.y/50+")");
+    if (position.x/50 == goalX && goalY == (int)(position.y/50)) {
       lives--;
       dead = true;
     }
     float[] a = gps().nextMove();
+    velocity = new PVector(a[0],a[1]);
     position.add(new PVector(a[0]*speed,a[1]*speed));;
+    System.out.println(Arrays.toString(a)+": "+gps());
   }
   
   Square gps() {

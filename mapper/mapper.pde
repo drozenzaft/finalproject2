@@ -5,21 +5,19 @@ ArrayList<Enemy> enemies;
 Map map;
 
 void setup() {
-  //size(1050, 850);
-  size(800,600);
+  size(1050, 850);
   background(255);
   currentX = 0;
-  currentY = 8;
+  currentY = 1;
   startX = 0;
-  startY = 8;
+  startY = 2;
   goalX = width/50-1;
-  goalY = 2;
+  goalY = 13;
   map = new Map();
   lives = 20;
   score = 0;
   enemies = new ArrayList<Enemy>();
-  enemies.add(new Enemy());
-  //for (Enemy e : enemies) e.reachGoal();
+  enemies.add(new Enemy()); 
 }
 
 
@@ -42,7 +40,8 @@ void draw() {
   if (lives <= 0) {
     noLoop();
     textSize(width/12);
-    textAlign(CENTER, CENTER);
+    textAlign(CENTER, BOTTOM);
+    fill(255,0,0);
     text("GAME OVER\nFINAL SCORE:\n"+score, width/2, height/2);
   }
 }

@@ -17,7 +17,7 @@ class Square {
     fill(c);
   }
   boolean inBounds() {
-    return !(x < 0 || y < 0 || x > width/50 || y > height/50);
+    return !(x < 0 || y < 0 || x >= width/50 || y >= height/50);
   }
   int compareTo(Square other) {
     if (distToGoal < other.num()) return 1;
