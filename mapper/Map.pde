@@ -9,7 +9,8 @@ class Map {
     }
     display();
   }
-  void display() {
+  int display() {
+    int start = millis();
     fill(17,6,188);
     stroke(0);
     int xcor = 0;
@@ -27,10 +28,7 @@ class Map {
       ycor += 50;
       xcor = 0;
     }
-  }
-  void setColor(int x, int y) {
-    fill(255,0,0);
-    squares[x][y] = new Square(x,y);
+    return millis() - start;
   }
   Square get(int x, int y) {
     return squares[y][x];
