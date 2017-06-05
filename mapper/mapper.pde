@@ -26,7 +26,7 @@ boolean shouldSpawn() {
   //the code in first comment on the following forum post helped me understand the concept of time intervals.
   //i modified it to suit this project.
   //https://forum.processing.org/one/topic/make-something-appear-on-a-time-interval.html
-  if (millis() > setupMillis + 1000) {
+  if (millis() >= setupMillis + 1000) {
     setupMillis = millis();
     //spawns 20 enemies
     return enemiesSpawned < 20;
@@ -34,8 +34,17 @@ boolean shouldSpawn() {
   return false;
 }
 
+void mouseClicked() {
+  for (Square[] s : map.squares) {
+    for (Square a : s) {
+      if (mousePressed) a.mouse();
+    }
+  }
+}
+
 void draw() {
   map.display();
+  mouseClicked();
   System.out.println(millis() + ", " + enemiesSpawned);
   if (shouldSpawn()) {
     enemies.add(new Enemy());
