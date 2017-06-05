@@ -8,9 +8,7 @@ void mousePressed() {
 }
 void draw() {
   boolean p = false;
-  background(200);
-  if (mousePressed) {
-    t.createTower();
-  }
-  //createTower();
+  background(0, 128, 255);
+  t.createTower();
 }
+//createTower();
