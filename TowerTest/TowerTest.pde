@@ -9,11 +9,11 @@ void mousePressed() {
 }
 void draw() {
   boolean p = false;
-  background(200);
-  SideBar s = new SideBar(600);
+  background(0, 128, 255);
+  /**SideBar s = new SideBar(600);
   s.display();
-  if (mousePressed) {
+  if (mousePressed) {*/
     t.createTower();
-  }
+  //}
   //createTower();
 }
