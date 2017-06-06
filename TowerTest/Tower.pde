@@ -1,10 +1,11 @@
 class Tower {
-  boolean place;
+  int q;
   int xcor;
   int ycor;
-  int costToBuy;
-  int costToSell;//actually not a cost, but amount of money you get, but that is v long to type
+  boolean place;
   Money theDough;
+  int costToBuy;
+  int costToSell;
   Tower(int toBuy, int toSell, Money m) {
     costToBuy = toBuy;
     costToSell = toSell;
@@ -13,19 +14,21 @@ class Tower {
   }
   void createTower() {
     //if (theDough.showMoney() > costToBuy) {
-      if (mousePressed) {
-        place = true;
-        xcor = mouseX;
-        ycor = mouseY;
-      }
-      if (place) {
-        rect(xcor, ycor, 50, 50, 30);
-      } else {
-        rect(mouseX, mouseY, 50, 50, 30);
-      }
+    if (mousePressed) {
+      place = true;
+      xcor = mouseX;
+      ycor = mouseY;
+    }
+    if (place) {
+      rect(xcor, ycor, q, q, 30);
+    } else {
+      rect(mouseX, mouseY, q, q, 30);
+    }
     //}
-    //else have sidebar show "not enough money!"
   }
+  //else have sidebar show "not enough money!"
+
+  //showdata: if (clicked)--> highlight area around showing range, (for now at least)
   void display() {
     createTower();
   }

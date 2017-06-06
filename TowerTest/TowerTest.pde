@@ -11,9 +11,9 @@ void draw() {
   boolean p = false;
   background(0, 128, 255);
   /**SideBar s = new SideBar(600);
-  s.display();
-  if (mousePressed) {*/
-    t.createTower();
+   s.display();
+   if (mousePressed) {*/
+  t.createTower();
   //}
   //createTower();
 }
