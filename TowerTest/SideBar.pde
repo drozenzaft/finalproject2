@@ -8,4 +8,3 @@ class SideBar{
     size(q, q/4);//look up size
   }
 }
-    
