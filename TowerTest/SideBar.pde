@@ -1,10 +1,16 @@
 class SideBar{
   //needs all the data, message to display error
   int q;
-  SideBar(int c){
+  Money mon;
+  SideBar(int c, Money m){
     q = c;
+    mon = m;
   }
   void display(){
-    size(q, q/4);//look up size
+    rect(0, 0, width / 25, 800);
+    background(255);
+    textSize(width / 12);
+    //text("MONEY: " + mon.showMoney());
+    
   }
 }
