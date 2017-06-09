@@ -14,6 +14,8 @@ class Tower {
   }
   void createTower() {
     //if (theDough.showMoney() > costToBuy) {
+      rect(mouseX, mouseY, q, q, 30);
+      /**
     if (mousePressed) {
       place = true;
       xcor = mouseX;
@@ -23,7 +25,7 @@ class Tower {
       rect(xcor, ycor, q, q, 30);
     } else {
       rect(mouseX, mouseY, q, q, 30);
-    }
+    }*/
     //}
   }
   //else have sidebar show "not enough money!"
