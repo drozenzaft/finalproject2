@@ -11,6 +11,7 @@ class Enemy {
     speed = 2;
     position = new PVector(startX*squareSize,startY*squareSize);
     size = 24;
+    dead = false;
   }
   boolean killed() {
     return hp <= 0;

@@ -1,16 +1,11 @@
 class Square {
   int x, y, distToGoal;
   boolean canTraverse, initialized;
+  Projectile myProjectile;
   Square(int xcor, int ycor) {
     x = xcor;
     y = ycor;
     canTraverse = true;
-    initialized = false;
-  }
-  Square(int xcor, int ycor, boolean boo) {
-    x = xcor;
-    y = ycor;
-    canTraverse = boo;
     initialized = false;
   }
   Square(int xcor, int ycor, boolean boo, int distToGoal) {
@@ -48,7 +43,11 @@ class Square {
     boolean b = !(x == goalX && y == goalY);
     for (Square[] a : map.squares) {
       for (Square s : a) {
-        if (!(x == startX && y == startY) && b && mousePressed) map.squares[y][x].canTraverse = false;
+        if (!(x == startX && y == startY) && b && mousePressed) {
+          map.get(x,y).canTraverse = false;
+          towers.add(this);
+          myProjectile = new Projectile(x*squareSize+squareSize/3+3,y*squareSize+squareSize/4);
+        }
         if (b && mousePressed && s.canTraverse) {
           s.initialized = false;
           s.distToGoal = 0;

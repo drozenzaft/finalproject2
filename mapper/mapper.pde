@@ -4,6 +4,7 @@ int score;
 int squareSize;
 int startX, startY, currentX, currentY, goalX, goalY;
 ArrayList<Enemy> enemies;
+ArrayList<Square> towers;
 Map map;
 int setupMillis;
 
@@ -18,11 +19,11 @@ void setup() {
   goalX = width/squareSize-1;
   goalY = height/squareSize-1;
   map = new Map();
-  print("mapper");
   map.setAllDist();
   lives = 100;
   score = 0;
   enemies = new ArrayList<Enemy>();
+  towers = new ArrayList<Square>();
   setupMillis = millis();
 }
 
@@ -38,13 +39,14 @@ boolean shouldSpawn() {
   return false;
 }
 
+
 void mouseClicked() {
   //for (Square[] a : map.squares) {
-   // for (Square s : a) {
-    //  if (s.x == (int)(mouseX/50) && s.y == (int)(mouseY/50)) s.mouse();
-    //}
- // }
-  new Square((int)(mouseX/squareSize),(int)(mouseY/squareSize)).mouse();
+  // for (Square s : a) {
+  //  if (s.x == (int)(mouseX/50) && s.y == (int)(mouseY/50)) s.mouse();
+  //}
+  // }
+  new Square((int)(mouseX/squareSize), (int)(mouseY/squareSize)).mouse();
 }
 
 void draw() {
@@ -68,6 +70,11 @@ void draw() {
       enemies.remove(i);
       i--;
     }
+  }
+  for (int j = 0; j < towers.size(); j++) {
+    Projectile a = towers.get(j).myProjectile;
+    a.spawnMillis = millis();
+    a.fire();
   }
   if (lives <= 0) {
     noLoop();
