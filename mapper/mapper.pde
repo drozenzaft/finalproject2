@@ -9,11 +9,12 @@ ArrayList<Enemy> enemies;
 Map map;
 SideBar side;
 int setupMillis;
+Tower upgrader;
 ArrayList<Tower> towers;
 boolean placing;
 
 void setup() {
-  size(1350, 700);
+  size(1200, 700);
   background(255);
   squareSize = 30;
   currentX = 0;
@@ -24,7 +25,6 @@ void setup() {
   goalY = (height)/squareSize-3;
   side = new SideBar();
   map = new Map();
-  print("mapper");
   placing = false;
   map.setAllDist();
   towers = new ArrayList<Tower>();
@@ -34,6 +34,7 @@ void setup() {
   enemies = new ArrayList<Enemy>();
   //towers = new ArrayList<Square>();
   setupMillis = millis();
+  upgrader = null;
 }
 
 boolean shouldSpawn() {
@@ -43,15 +44,14 @@ boolean shouldSpawn() {
   if (millis() >= setupMillis + 1000) {
     setupMillis = millis();
     //spawns 20 enemies
-    return enemiesSpawned < 20;
+    return enemies.size() < 20;
   }
   return false;
 }
 
 void mouseClicked() {
-  if (mouseX >= 1060 && mouseX <= 1090 && mouseY >= 60 && mouseY <= 90) {
+  if (mouseX >= goalX*squareSize+squareSize*6 && mouseX <= goalX*squareSize+squareSize*6+30 && mouseY >= 75 && mouseY <= 105) {
     towers.add(new Tower());
-    towers.get(towers.size() - 1).myProjectile.fireMillis = millis();
     if (towers.get(towers.size() - 1).getBuy() > side.getMoney().showMoney()) {
       textSize(24);
       text("TOO LITTLE MONEY", 1060, 95);
@@ -64,42 +64,57 @@ void mouseClicked() {
   //new Square((int)(mouseX/squareSize), (int)(mouseY/squareSize)).mouse();
 }
 void placeTower() {
-  if (placing && mousePressed && mouseX < 1020) {
-    rect(mouseX, mouseY, 30, 30, 10);
+  if (placing && mousePressed && mouseX < goalX*squareSize+squareSize && mouseX > squareSize && mouseY > startY*squareSize && mouseY < height-(squareSize*2)) {
+    rect((int)(mouseX/squareSize)*squareSize, (int)(mouseY/squareSize)*squareSize, 30, 30, 10);
     if (mousePressed) {
-      
-      towers.get(towers.size() - 1).setCoords(mouseX, mouseY);
+      towers.get(towers.size() - 1).setCoords((int)(mouseX/squareSize)*squareSize, (int)(mouseY/squareSize)*squareSize);
+      towers.get(towers.size()-1).gps().mouse();
       placing = false;
     }
   }
 }
+Square gps() {
+  try {
+    return map.get((int)(mouseX/squareSize),(int)(mouseY/squareSize));
+  }
+  catch (IndexOutOfBoundsException e) {
+    return null;
+  }
+}
 void showTowerInfo() {
-  for (Tower t : towers) {
-    if (mouseX >= t.getX() && mouseX <= t.getX() + 30 && mouseY >= t.getY() && mouseY <= t.getY() + 30 && mousePressed) {
-      textSize(20);
-      fill(0, 76, 153);
-      text("DAMAGE: " + t.getDamage(), 1060, 120);
-      text("RANGE: " + t.getRange(), 1200, 120);
-      text("Cost to Sell: " + t.getSell(), 1060, 145);
-      if (t.getNextUpgrade() == 0) {
-        text("NO MORE UPGRADES AVAILABLE.", 1060, 170);
-      } else {
-        text("Cost of next upgrade: " + t.getNextUpgrade(), 1060, 170);
-        rect(1060, 195, 100, 30);
-        text("Buy next Upgrade: ", 1060, 195);
-      }
-    }   
+  if (towers.size() == 0) return;
+  for (Tower a : towers) {
+    if (gps() != null && mousePressed && gps().x == a.gps().x && gps().y == a.gps().y) {
+      upgrader = a;
+      break;
+    }
+  }
+  if (upgrader == null) return;
+  textSize(20);
+  fill(0, 76, 153);
+  text("DAMAGE: " + upgrader.getDamage(), goalX*squareSize+squareSize, 120);
+  text("RANGE: " + upgrader.getRange(), goalX*squareSize+squareSize, 145);
+  //text("Cost to Sell: " + t.getSell(), goalX*squareSize+squareSize, 170);
+  if (upgrader.getNextUpgrade() == 0) {
+    text("NO MORE UPGRADES AVAILABLE.", goalX*squareSize+squareSize, 170);
+  } else {
+    text("Cost of next upgrade: " + upgrader.getNextUpgrade(), goalX*squareSize+squareSize, 170);
+    rect(goalX*squareSize+squareSize*7, 195, 100, 30);
+    if (mousePressed && mouseX > goalX*squareSize+squareSize*7 && mouseX < goalX*squareSize+squareSize*7+100
+      && mouseY > 195 && mouseY < 225 && upgrader.getNextUpgrade() < side.mon.showMoney()) 
+      upgrader.buyNextUpgrade();
+    text("Buy next Upgrade: ", goalX*squareSize+squareSize, 195);
   }
   textSize(12);
   fill(255);
 }
-void buyNextUpgrade(){
-  if (mousePressed && mouseX >= 1060 && mouseX <= 1160 && mouseY >= 100 && mouseY <= 130){
+void buyNextUpgrade() {
+  if (mousePressed && mouseX >= 1060 && mouseX <= 1160 && mouseY >= 100 && mouseY <= 130) {
     towers.get(0).buyNextUpgrade();
   }
 }
-    
-    
+
+
 
 /** if (placing && mousePressed) {
  towers.get(towers.size() - 1).setCoords(mouseX, mouseY);
@@ -118,8 +133,8 @@ void buyNextUpgrade(){
 void draw() {
   map.display();
   side.display();
-  placeTower();
   showTowerInfo();
+  placeTower();
   //showTowers();
   /**if (mousePressed && mouseX >= 1060 && mouseX <= 1090 && mouseY >= 60 && mouseY <= 90) {
    Tower t = new Tower();
@@ -132,25 +147,20 @@ void draw() {
       t.display();
     }
   }
-  //System.out.println(millis() + ", " + enemiesSpawned);
   if (shouldSpawn()) {
-    enemies.add(new Enemy());
+    enemies.add(new Enemy(side.level, side.level+1));
     enemiesSpawned++;
   }
+  side.level = enemiesSpawned/20+1;
   //map.displayTowers();
   for (int i = 0; i < enemies.size(); i++) {
-    //if (i%5 == 0) enemies.get(i).hp = 1;
     if (enemies.get(i).killed()) {
       enemies.remove(i);
-//<<<<<<< HEAD
-      //score += 10;
       side.increaseScore();
-//=======
       i--;
     } else if (enemies.get(i).dead) {
       enemies.remove(i);
       i--;
-//>>>>>>> 9874ad50050b34b5133a1d67cbb8b39646d4e841
     } else {
       enemies.get(i).display();
       enemies.get(i).move();
@@ -158,12 +168,13 @@ void draw() {
   }
   for (int j = 0; j < towers.size(); j++) {
     Projectile a = towers.get(j).myProjectile;
-    if (millis() >= a.fireMillis + 1000) {
+    if (a != null && millis() >= a.fireMillis + 1000) {
+
       a.fireMillis = millis();
-     // if (frameCount%10 == j%10) {
-        //println(frameCount);
-        a.fire();
-        a.dead = false;
+      // if (frameCount%10 == j%10) {
+      //println(frameCount);
+      a.fire();
+      a.dead = false;
       //}
     }
     //(when the tower index last digit matches the frame count last digit)
@@ -174,6 +185,6 @@ void draw() {
     textSize(width/12);
     textAlign(CENTER, BOTTOM);
     fill(255, 0, 0);
-    text("GAME OVER\nFINAL SCORE:\n"+side.getScore(), width/2, height/2);
+    text("GAME OVER, N00B\nFINAL SCORE:\n"+side.getScore(), width/3+50, height-150);
   }
 }

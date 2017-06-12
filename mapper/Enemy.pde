@@ -5,10 +5,10 @@ class Enemy {
   boolean dead;
   PVector position;
   float speed;
-  Enemy() {
-    hp = 5;
+  Enemy(int maxHP, float speed) {
+    hp = maxHP;
     c = color(0);
-    speed = 2;
+    this.speed = speed;
     position = new PVector(startX*squareSize,startY*squareSize);
     size = 24;
     dead = false;
@@ -25,14 +25,16 @@ class Enemy {
     if (hp > 3) fill(0,255,0);
     else if (hp == 3) fill(255,255,0);
     else fill(255,0,0);
+    textSize(12);
     text(""+hp,position.x+squareSize/2-size/7,position.y+squareSize/2+size/4);
   }
   void move() {
-    if (position.x/squareSize == goalX && goalY == (int)(position.y/squareSize)) {
-      side.decreaseLives();
+    Square g = gps();
+    if (g.x == goalX && g.y == goalY) {
+      side.decreaseLives(hp);
       dead = true;
     }
-    float[] a = gps().nextMove();
+    float[] a = g.nextMove();
     position.add(new PVector(a[0]*speed,a[1]*speed));;
   } 
   Square gps() {

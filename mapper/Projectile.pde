@@ -4,14 +4,17 @@ class Projectile {
   float speed, size, range;
   color c;
   int fireMillis;
-  Projectile(int xcor, int ycor) {
+  int dmg;
+  Projectile(int xcor, int ycor, int damage, int range) {
     dead = false;
     start = new PVector(xcor, ycor);
     position = new PVector(xcor, ycor);
-    speed = 0.5;
-    range = 100;
+    speed = 2;
+    this.range = range;
     c = color(255, 135, 39);
     size = 10;
+    fireMillis = millis();
+    dmg = damage;
   }
   Enemy closeEnough(float radius) {
     for (int i = 0; i < enemies.size(); i++) {
@@ -22,8 +25,8 @@ class Projectile {
     return null;
   }
   boolean hit(Enemy e) {
-    if (dist(e.position.x, e.position.y, position.x, position.y) <= 0.15) {
-      e.hp--;
+    if (dist(e.position.x, e.position.y, position.x, position.y) <= 1) {
+      e.hp -= dmg;
       dead = true;
       return true;
     }
@@ -49,12 +52,12 @@ class Projectile {
   }
   void fire() {
     Enemy e = closeEnough(range);
-    println(e);
     if (e != null) {
       PVector a = attack(e);
       fireMillis = millis();
-      while (!dead && !hit(e)) {
+      while (!dead) {
         display();
+        if (hit(e)) side.mon.addMoney(1);
         setBoundaries();
         position.add(a);
       }   

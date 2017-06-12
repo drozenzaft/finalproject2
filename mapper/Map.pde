@@ -32,21 +32,13 @@ class Map {
         else fill(17, 6, 188);
         rect(xcor, ycor, squareSize, squareSize);
         fill(255);
-        text(""+s.distToGoal, xcor+squareSize/2, ycor+squareSize/2);
+        //text(""+s.distToGoal, xcor+squareSize/2, ycor+squareSize/2);
         fill(17, 6, 188);
         xcor += squareSize;
       }
       ycor += squareSize;
       xcor = 0;
     }
-//<<<<<<< HEAD
-    //map.mouseClicked();
-//=======
-    //fill(0);
-    //textSize(squareSize*2);
-    //text("LIVES: " + lives,squareSize,height-squareSize/2);
-    //textSize(20);
-//>>>>>>> 9874ad50050b34b5133a1d67cbb8b39646d4e841
   }
   Square get(int x, int y) {
     return squares[y][x];
