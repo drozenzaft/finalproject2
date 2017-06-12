@@ -14,6 +14,9 @@ June 11:
 –STEVEN: Fixed a boatload of merge conflicts and fixed Daniel’s map, square, enemy, and projectile code to work with the sidebar, towers, and money.
 –DANIEL: Fixed as many bugs as possible and created the final version (fixed loss message, fixed upgrades not applying to individual towers, repositioning things, fixed tower placement, fixed sidebar text overwrite bug, and too many other things that I can think of).
 
+June 11: 
+-STEVEN: *Disclaimer* I did not commit and push over the weekend for fear that there would be frequent major merge conflicts that would result in a lot of unnecessary work. Thus, even though I worked over the course of the entire weekend, I only committed once, at 1 AM on June 12. The work I have done has included created a SideBar that can allow a player to see the amount of money and lives left, as well as their score and the level. Additionally, towers can be created by clicking on the small bluish square in the sidebar, and then placed upon clicking the mouse on the board. Some work was also done on upgrades; however, they do not work at all. Additionally, I tried to put together my code and the code Daniel wrote on projectiles.
+
 Welcome to Desktop National Defense! In our clone of Desktop Tower Defense, you defend your… red box from the enemy… red box. Yeah. It’s a shame that there is no real reference to those evil Communists like we planned. There are no graphics in this game besides ellipses and shapes. But that’s okay (I hope), because we have an algorithmically complex project with so many nuances that your brain will explode! (I know mine did).
 Featuring enemies that detect their own (shortest) path to the goal AUTOMATICALLY, freely placeable and upgradable towers, and a NEXT-LEVEL SCORE AND MONEY SYSTEM (okay, fine, they’re just basic counters, whatever), Desktop National Defense offers unmatched replayability and exciting, action-packed gameplay that no other game on the PC market surpasses!
 
@@ -35,4 +38,3 @@ But like any great game, we do have a few… minor bugs, and there are some feat
 –Did I mention that there are no graphics beyond basic shapes in this game?
 
 But these are just minor flaws. Remember the key to success in Desktop National Defense: have fun!
-
