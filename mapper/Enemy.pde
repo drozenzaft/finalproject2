@@ -9,7 +9,7 @@ class Enemy {
     hp = 5;
     c = color(0);
     speed = 2;
-    position = new PVector(startX*50,startY*50);
+    position = new PVector(startX*squareSize,startY*squareSize);
     size = 24;
   }
   boolean killed() {
@@ -18,21 +18,21 @@ class Enemy {
   void display() {
     fill(c);
     stroke(c);
-    ellipse(position.x+25, position.y+25, size, size);
-    if (hp > 3) fill(0,255,0);
-    else if (hp == 3) fill(255,255,0);
+    ellipse(position.x+squareSize/2, position.y+squareSize/2, size, size);
+    if (hp > 3) fill(0,squareSize/25,0);
+    else if (hp == 3) fill(255,squareSize/25,0);
     else fill(255,0,0);
-    text(""+hp,position.x+25-size/7,position.y+25+size/4);
+    text(""+hp,position.x+squareSize/2-size/7,position.y+squareSize/2+size/4);
   }
   void move() {
-    if (position.x/50 == goalX && goalY == (int)(position.y/50)) {
-      lives--;
+    if (position.x/squareSize == goalX && goalY == (int)(position.y/squareSize)) {
+      side.decreaseLives();
       dead = true;
     }
     float[] a = gps().nextMove();
     position.add(new PVector(a[0]*speed,a[1]*speed));;
   } 
   Square gps() {
-    return map.get((int)(position.x/50), (int)(position.y/50));
+    return map.get((int)(position.x/squareSize), (int)(position.y/squareSize));
   }
 }
