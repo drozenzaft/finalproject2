@@ -4,6 +4,7 @@ int score;
 int squareSize;
 int startX, startY, currentX, currentY, goalX, goalY;
 ArrayList<Enemy> enemies;
+ArrayList<Square> towers;
 Map map;
 int setupMillis;
 
@@ -16,13 +17,13 @@ void setup() {
   startX = 0;
   startY = 2;
   goalX = width/squareSize-1;
-  goalY = height/squareSize-1;
+  goalY = height/squareSize-3;
   map = new Map();
-  print("mapper");
   map.setAllDist();
   lives = 100;
   score = 0;
   enemies = new ArrayList<Enemy>();
+  towers = new ArrayList<Square>();
   setupMillis = millis();
 }
 
@@ -39,12 +40,7 @@ boolean shouldSpawn() {
 }
 
 void mouseClicked() {
-  //for (Square[] a : map.squares) {
-   // for (Square s : a) {
-    //  if (s.x == (int)(mouseX/50) && s.y == (int)(mouseY/50)) s.mouse();
-    //}
- // }
-  new Square((int)(mouseX/squareSize),(int)(mouseY/squareSize)).mouse();
+  new Square((int)(mouseX/squareSize), (int)(mouseY/squareSize)).mouse();
 }
 
 void draw() {
@@ -60,14 +56,27 @@ void draw() {
     if (enemies.get(i).killed()) {
       enemies.remove(i);
       score += 10;
+      i--;
+    } else if (enemies.get(i).dead) {
+      enemies.remove(i);
+      i--;
     } else {
       enemies.get(i).display();
       enemies.get(i).move();
     }
-    if (enemies.get(i).dead) {
-      enemies.remove(i);
-      i--;
+  }
+  for (int j = 0; j < towers.size(); j++) {
+    Projectile a = towers.get(j).myProjectile;
+    if (millis() >= a.fireMillis + 1000) {
+      a.fireMillis = millis();
+     // if (frameCount%10 == j%10) {
+        //println(frameCount);
+        a.fire();
+        a.dead = false;
+      //}
     }
+    //(when the tower index last digit matches the frame count last digit)
+    //(1/10th of the time) look at all monsters to shoot
   }
   if (lives <= 0) {
     noLoop();

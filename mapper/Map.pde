@@ -1,15 +1,13 @@
 class Map {
   Square[][] squares;
   Map() {
-    println("initializing");
     squares = new Square[height/squareSize][width/squareSize];
     for (int i = 0; i < squares.length; i++) {
       for (int j = 0; j < squares[i].length; j++) {
         if (j == goalX && i == goalY) {
           squares[i][j] = new Square(j, i, true, 0);
           squares[i][j].initialized = true;
-        }
-        else {
+        } else {
           squares[i][j] = new Square(j, i, true, -1);
         }
       }
@@ -35,6 +33,10 @@ class Map {
       ycor += squareSize;
       xcor = 0;
     }
+    fill(0);
+    textSize(squareSize*2);
+    text("LIVES: " + lives,squareSize,height-squareSize/2);
+    textSize(20);
   }
   Square get(int x, int y) {
     return squares[y][x];
@@ -51,7 +53,7 @@ class Map {
         try {
           int x = current.x+(int)(move[0]);
           int y = current.y+(int)(move[1]);
-          Square a = get(x,y);
+          Square a = get(x, y);
           if (a.inBounds() && !a.initialized) {
             frontier.add(a);
             a.distToGoal = current.distToGoal+1;
