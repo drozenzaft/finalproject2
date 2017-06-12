@@ -33,6 +33,10 @@ class Map {
       ycor += squareSize;
       xcor = 0;
     }
+    fill(0);
+    textSize(squareSize*2);
+    text("LIVES: " + lives,squareSize,height-squareSize/2);
+    textSize(20);
   }
   Square get(int x, int y) {
     return squares[y][x];

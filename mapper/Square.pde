@@ -7,6 +7,7 @@ class Square {
     y = ycor;
     canTraverse = true;
     initialized = false;
+    myProjectile = new Projectile(x*squareSize+squareSize/3+3,y*squareSize+squareSize/4);
   }
   Square(int xcor, int ycor, boolean boo, int distToGoal) {
     x = xcor;
@@ -14,6 +15,7 @@ class Square {
     canTraverse = boo;
     this.distToGoal = distToGoal;
     initialized = false;
+    myProjectile = new Projectile(x*squareSize+squareSize/3+3,y*squareSize+squareSize/4);
   }
   boolean inBounds() {
     return !(x < 0 || y < 0 || x > goalX || y > goalY) && canTraverse;
@@ -45,8 +47,8 @@ class Square {
       for (Square s : a) {
         if (!(x == startX && y == startY) && b && mousePressed) {
           map.get(x,y).canTraverse = false;
-          towers.add(this);
-          myProjectile = new Projectile(x*squareSize+squareSize/3+3,y*squareSize+squareSize/4);
+          towers.add(this);    
+          myProjectile.fireMillis = millis();
         }
         if (b && mousePressed && s.canTraverse) {
           s.initialized = false;
