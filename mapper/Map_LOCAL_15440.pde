@@ -1,10 +1,11 @@
-import java.util.*;
+/**import java.util.*;
 class Map {
   Square[][] squares;
   //SideBar side;
   //ArrayList<Tower> towers = new ArrayList<Tower>();
   //boolean placingTower;
   Map(){//SideBar sb) {
+    println("initializing");
     //placingTower = false;
     //side = sb;
     squares = new Square[height/squareSize][(width - 300)/squareSize];
@@ -39,14 +40,7 @@ class Map {
       ycor += squareSize;
       xcor = 0;
     }
-//<<<<<<< HEAD
     //map.mouseClicked();
-//=======
-    //fill(0);
-    //textSize(squareSize*2);
-    //text("LIVES: " + lives,squareSize,height-squareSize/2);
-    //textSize(20);
-//>>>>>>> 9874ad50050b34b5133a1d67cbb8b39646d4e841
   }
   Square get(int x, int y) {
     return squares[y][x];
@@ -98,7 +92,7 @@ class Map {
       t.display();
     }
   }*/
-  void setAllDist() {
+  /**void setAllDist() {
     float[][] moves = new float[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     QueueFrontier frontier = new QueueFrontier();
     Square current = map.get(goalX, goalY);
@@ -122,4 +116,4 @@ class Map {
       }
     }
   }
-}
+}*/

@@ -5,6 +5,7 @@ int enemiesSpawned;
 int squareSize;
 int startX, startY, currentX, currentY, goalX, goalY;
 ArrayList<Enemy> enemies;
+//ArrayList<Square> towers;
 Map map;
 SideBar side;
 int setupMillis;
@@ -20,7 +21,7 @@ void setup() {
   startX = 0;
   startY = 2;
   goalX = (width - 300)/squareSize-1;
-  goalY = (height)/squareSize-1;
+  goalY = (height)/squareSize-3;
   side = new SideBar();
   map = new Map();
   print("mapper");
@@ -31,6 +32,7 @@ void setup() {
   //lives = 100;
   //score = 0;
   enemies = new ArrayList<Enemy>();
+  //towers = new ArrayList<Square>();
   setupMillis = millis();
 }
 
@@ -49,6 +51,7 @@ boolean shouldSpawn() {
 void mouseClicked() {
   if (mouseX >= 1060 && mouseX <= 1090 && mouseY >= 60 && mouseY <= 90) {
     towers.add(new Tower());
+    towers.get(towers.size() - 1).myProjectile.fireMillis = millis();
     if (towers.get(towers.size() - 1).getBuy() > side.getMoney().showMoney()) {
       textSize(24);
       text("TOO LITTLE MONEY", 1060, 95);
@@ -58,6 +61,7 @@ void mouseClicked() {
       placing = true;
     }
   }
+  //new Square((int)(mouseX/squareSize), (int)(mouseY/squareSize)).mouse();
 }
 void placeTower() {
   if (placing && mousePressed && mouseX < 1020) {
@@ -138,16 +142,32 @@ void draw() {
     //if (i%5 == 0) enemies.get(i).hp = 1;
     if (enemies.get(i).killed()) {
       enemies.remove(i);
+//<<<<<<< HEAD
       //score += 10;
       side.increaseScore();
+//=======
+      i--;
+    } else if (enemies.get(i).dead) {
+      enemies.remove(i);
+      i--;
+//>>>>>>> 9874ad50050b34b5133a1d67cbb8b39646d4e841
     } else {
       enemies.get(i).display();
       enemies.get(i).move();
     }
-    if (enemies.get(i).dead) {
-      enemies.remove(i);
-      i--;
+  }
+  for (int j = 0; j < towers.size(); j++) {
+    Projectile a = towers.get(j).myProjectile;
+    if (millis() >= a.fireMillis + 1000) {
+      a.fireMillis = millis();
+     // if (frameCount%10 == j%10) {
+        //println(frameCount);
+        a.fire();
+        a.dead = false;
+      //}
     }
+    //(when the tower index last digit matches the frame count last digit)
+    //(1/10th of the time) look at all monsters to shoot
   }
   if (side.getLives() <= 0) {
     noLoop();

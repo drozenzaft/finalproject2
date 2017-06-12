@@ -4,6 +4,7 @@ class Tower{
   int range, damage;
   int cost1, cost2, cost3, cost4;
   int nextUpgrade = 1;
+  Projectile myProjectile;
   Tower(){
     costToBuy = 15;
     costToSell = 10;
@@ -13,6 +14,7 @@ class Tower{
     cost2 = 15;
     cost3 = 17;
     cost4 = 20;
+    myProjectile = new Projectile(mouseX*squareSize+squareSize/3+3,mouseY*squareSize+squareSize/4);
   }
   Tower(int xcor, int ycor){
     costToBuy = 15;
@@ -21,6 +23,7 @@ class Tower{
     range = 70;
     x = xcor;
     y = ycor;
+    myProjectile = new Projectile(x*squareSize+squareSize/3+3,y*squareSize+squareSize/4);
   }
   int getX(){
     return x;

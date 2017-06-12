@@ -1,13 +1,19 @@
-import java.util.*;
+/**import java.util.*;
 class Map {
   Square[][] squares;
+//<<<<<<< HEAD
   //SideBar side;
   //ArrayList<Tower> towers = new ArrayList<Tower>();
   //boolean placingTower;
   Map(){//SideBar sb) {
+    println("initializing");
     //placingTower = false;
     //side = sb;
     squares = new Square[height/squareSize][(width - 300)/squareSize];
+//=======
+  Map() {
+    squares = new Square[height/squareSize][width/squareSize];
+>>>>>>> 9874ad50050b34b5133a1d67cbb8b39646d4e841
     for (int i = 0; i < squares.length; i++) {
       for (int j = 0; j < squares[i].length; j++) {
         if (j == goalX && i == goalY) {
@@ -39,65 +45,65 @@ class Map {
       ycor += squareSize;
       xcor = 0;
     }
-//<<<<<<< HEAD
+<<<<<<< HEAD
     //map.mouseClicked();
-//=======
-    //fill(0);
-    //textSize(squareSize*2);
-    //text("LIVES: " + lives,squareSize,height-squareSize/2);
-    //textSize(20);
-//>>>>>>> 9874ad50050b34b5133a1d67cbb8b39646d4e841
+=======
+    fill(0);
+    textSize(squareSize*2);
+    text("LIVES: " + lives,squareSize,height-squareSize/2);
+    textSize(20);
+>>>>>>> 9874ad50050b34b5133a1d67cbb8b39646d4e841
   }
   Square get(int x, int y) {
     return squares[y][x];
   }
-  /**void mouseClicked() {
-    if (mouseX >= 1060 && mouseX <= 1090 && mouseY >= 60 && mouseY <= 90) {
-      System.out.println("Square clicked in mouseClicked");
-      towers.add(new Tower());
-      if (side.getMoney().showMoney() < towers.get(towers.size() - 1).getBuy()) {
-        System.out.println("Tower too expensive in mouseClicked");
-        towers.remove(towers.size() - 1);
-        return;
-      } else {
-        placingTower = true;
+  //void mouseClicked() {
+    //if (mouseX >= 1060 && mouseX <= 1090 && mouseY >= 60 && mouseY <= 90) {
+      //System.out.println("Square clicked in mouseClicked");
+      //towers.add(new Tower());
+      //if (side.getMoney().showMoney() < towers.get(towers.size() - 1).getBuy()) {
+        //System.out.println("Tower too expensive in mouseClicked");
+        //towers.remove(towers.size() - 1);
+        //return;
+      //} else {
+        //placingTower = true;
 
 
-        if (placingTower) {
-          towers.get(towers.size() - 1).setCoords(mouseX, mouseY);
-          placingTower = false;
-        }
-      }*/
+        //if (placingTower) {
+          //towers.get(towers.size() - 1).setCoords(mouseX, mouseY);
+          //placingTower = false;
+        //}
+      //}
 
-      /**void placeTower() {
+      //void placeTower() {
        if (mousePressed && mouseX >= 1060 && mouseX <= 1090 && mouseY >= 60 && mouseY <= 90) {
-       System.out.println("The Square has been clicked");
-       towers.add(new Tower ());
+       //System.out.println("The Square has been clicked");
+       //towers.add(new Tower ());
        //error message needed
-       if (side.getMoney().showMoney() < towers.get(towers.size() - 1).getBuy()) {
-       System.out.println("Tower too expensive");
-       towers.remove(towers.size() - 1);
-       return;
-       }
-       placingTower = true;
-       mouseClicked();
-      /**if (mouse) {
-       System.out.println("tower stays, coords are being set");
-       towers.get(towers.size() - 1).setCoords(mouseX, mouseY);
-       System.out.println("MouseX: " + mouseX + ", MouseY: " + mouseY);
-       }
-       }*/
-      /**for (Tower t : towers) {
-        System.out.println("displaying");
-        t.display();
-      }
-    }
-  }*/
-  /**void displayTowers() {
-    for (Tower t : towers) {
-      t.display();
-    }
-  }*/
+       //if (side.getMoney().showMoney() < towers.get(towers.size() - 1).getBuy()) {
+       //System.out.println("Tower too expensive");
+       //towers.remove(towers.size() - 1);
+       //return;
+       //}
+       //placingTower = true;
+       //mouseClicked();
+      //if (mouse) {
+       //System.out.println("tower stays, coords are being set");
+       //towers.get(towers.size() - 1).setCoords(mouseX, mouseY);
+       //System.out.println("MouseX: " + mouseX + ", MouseY: " + mouseY);
+       //}
+       //}
+      //for (Tower t : towers) {
+        //System.out.println("displaying");
+        //t.display();
+      //}
+    //}
+  //}
+  //void displayTowers() {
+    //for (Tower t : towers) {
+      //t.display();
+    //}
+  //}
   void setAllDist() {
     float[][] moves = new float[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     QueueFrontier frontier = new QueueFrontier();
@@ -122,4 +128,4 @@ class Map {
       }
     }
   }
-}
+}*/

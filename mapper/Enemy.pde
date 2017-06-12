@@ -11,6 +11,7 @@ class Enemy {
     speed = 2;
     position = new PVector(startX*squareSize,startY*squareSize);
     size = 24;
+    dead = false;
   }
   boolean killed() {
     return hp <= 0;
@@ -19,8 +20,10 @@ class Enemy {
     fill(c);
     stroke(c);
     ellipse(position.x+squareSize/2, position.y+squareSize/2, size, size);
-    if (hp > 3) fill(0,squareSize/25,0);
-    else if (hp == 3) fill(255,squareSize/25,0);
+    //if (hp > 3) fill(0,255,0);
+    //else if (hp == 3) fill(255,255,0);
+    if (hp > 3) fill(0,255,0);
+    else if (hp == 3) fill(255,255,0);
     else fill(255,0,0);
     text(""+hp,position.x+squareSize/2-size/7,position.y+squareSize/2+size/4);
   }
